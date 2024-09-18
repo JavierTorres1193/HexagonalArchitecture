@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { ServiceContainer } from "../../Shared/Infrastructure/ServiceContainer";
+import { NextFunction, Request, Response } from "express";
+import { ServiceContainer } from "../../../../Shared/Infrastructure/ServiceContainer";
 import { UserNotFoundError } from "../domain/UserNotFoundError";
 
 type requestBody = {
@@ -10,12 +10,17 @@ type requestBody = {
 }
 
 export class ExpressUserController {
-    async getAll(req: Request, res: Response) {
+
+    async getAll(req: Request, res: Response, next: NextFunction) {
+        try {
         const users = await ServiceContainer.user.getAll.run();
         return res.json(users).status(200);
+        } catch (error) {
+            next(error);
+            }
     };
 
-    async getById(req: Request, res: Response) {
+    async getById(req: Request, res: Response, next: NextFunction) {
         const id = req.params.id;
 
         try {
@@ -27,13 +32,15 @@ export class ExpressUserController {
             if (error instanceof UserNotFoundError) {
                 return res.status(400).json({message:error.message})
             }
-            throw error;
+            next(error);
         }
     };
 
-    async create(req:Request<requestBody>, res: Response) {
-        const {id, email,name,createdAt} = req.body;
+    async create(req:Request<requestBody>, res: Response, next: NextFunction) {
         try {
+            console.log("log del req.body", req.body);
+            const {id, email,name,createdAt} = req.body;
+            
             await ServiceContainer.user.create.run(
                 id,
                 name,
@@ -42,11 +49,11 @@ export class ExpressUserController {
             );
             return res.status(201).json({message: 'User created successfully'})
         } catch (error) {
-            return res.status(400).json({message:error.message})
+            next(error);
         }
     };
 
-    async update (req:Request<requestBody>, res: Response) {
+    async update (req:Request<requestBody>, res: Response, next: NextFunction) {
         const {id, email,name,createdAt} = req.body;
         try {
             await ServiceContainer.user.update.run(
@@ -56,18 +63,18 @@ export class ExpressUserController {
             );
             return res.status(204).json({message: 'User update successfully'})
         } catch (error) {
-            return res.status(400).json({message:error.message})
+            next(error)
         }
     };
 
-    async delete(req:Request, res: Response) {
+    async delete(req:Request, res: Response, next: NextFunction) {
         const id = req.params.id;
         try {
             await ServiceContainer.user.delete.run(id);
             return res.status(204).json({message: 'User deleted successfully'})
             } 
         catch (error) {
-            return res.status(400).json({message:error.message})
+            next(error)
             }
     }
 

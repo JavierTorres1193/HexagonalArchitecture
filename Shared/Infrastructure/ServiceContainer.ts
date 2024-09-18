@@ -1,9 +1,9 @@
-import { UserCreate } from "../../User/application/UserCreate/UserCreate";
-import { UserDelete } from "../../User/application/UserDelete/UserDelete";
-import { UserEdit } from "../../User/application/UserEdit/UserEdit";
-import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
-import { UserGetById } from "../../User/application/UserGetById/UserGetById";
-import { InMemoryUserRepository } from "../../User/infrastructure/InMemoryUserRepository"
+import { UserCreate } from "../../src/lib/User/application/UserCreate/UserCreate";
+import { UserDelete } from "../../src/lib/User/application/UserDelete/UserDelete";
+import { UserEdit } from "../../src/lib/User/application/UserEdit/UserEdit";
+import { UserGetAll } from "../../src/lib/User/application/UserGetAll/UserGetAll";
+import { UserGetById } from "../../src/lib/User/application/UserGetById/UserGetById";
+import { InMemoryUserRepository } from "../../src/lib/User/infrastructure/InMemoryUserRepository"
 
 const userRepository = new InMemoryUserRepository; 
 
