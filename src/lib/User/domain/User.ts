@@ -4,19 +4,33 @@ import { UserId } from "./UserId";
 import { Username } from "./Username";
 
 export class User {
-    id: UserId;
-    name: Username;
-    email: UserEMail;
-    createdAt: UserCreatedAt;
+  id: UserId;
+  name: Username;
+  email: UserEMail;
+  createdAt: UserCreatedAt;
 
-    constructor(id:UserId, name:Username, email:UserEMail, createdAt:UserCreatedAt){
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.createdAt = createdAt;
-    }
+  constructor(
+    id: UserId,
+    name: Username,
+    email: UserEMail,
+    createdAt: UserCreatedAt
+  ) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.createdAt = createdAt;
+  }
 
-    public nameAndEmail() {
-        return `${this.name} - ${this.email}`;
-    }
+  public nameAndEmail() {
+    return `${this.name} - ${this.email}`;
+  }
+
+  public mapToPrimitives() {
+    return {
+      id: this.id.value,
+      name: this.name.value,
+      email: this.email.value,
+      createdAt: this.createdAt.value,
+    };
+  }
 }
