@@ -1,87 +1,67 @@
-import { Pool } from "pg";
 import { UserRepository } from "../domain/UserRepository";
 import { User } from "../domain/User";
 import { UserId } from "../domain/UserId";
 import { UserCreatedAt } from "../domain/UserCreatedAt";
-import { Username } from "../domain/Username";
 import { UserEMail } from "../domain/UserEmail";
+import { UserModel } from "../../Shared/Infrastructure/persistence/UserModel"; // Importa tu modelo Sequelize
+import { UserUid } from "../domain/UserUid";
+import { UserPassword } from "../domain/UserPassword";
 
-type PostgresUser = {
-    id: string;
-    name: string;
-    email: string;
-    createdAt: Date;
-}
+export class PostgresUserRepository implements UserRepository {
 
-export class PostgresUserRepository implements UserRepository{
-
-    client: Pool;
-
-    constructor() {
-        this.client = new Pool({
-            connectionString: process.env.DATABASE_URL,
+    async create(user: User): Promise<void> {
+        await UserModel.create({
+            id: user.id.value,
+            uid: user.uid.value,
+            email: user.email.value,
+            password: user.password.value,
+            createdAt: user.createdAt.value // Asegúrate de que esto esté alineado con tu modelo
         });
     }
-    
-    async create(user:User): Promise<void> {
-        const query = {
-            text: "INSERT INTO users (id, name, email) VALUES ($1, $2, $3)",
-            values: [user.id.value, user.name.value, user.email.value],
-    }; 
-    await this.client.query(query);
-
-    };
 
     async getAll(): Promise<User[]> {
-        const query = {
-            text: "SELECT * FROM users",
-        };
-        const result = await this.client.query<PostgresUser>(query);
-        return result.rows.map((row) => new User(
+        const users = await UserModel.findAll(); // Obtiene todos los usuarios
+
+        return users.map((row) => new User(
             new UserId(row.id),
-            new Username(row.name),
+            new UserUid(row.Uid),
             new UserEMail(row.email),
+            new UserPassword(row.password),
             new UserCreatedAt(row.createdAt)
         ));
-    };
-
-    async getUserById(id: UserId): Promise<User | null> {
-        const query = {
-            text: "SELECT * FROM users WHERE id = $1",
-            values: [id.value],
-        };
-
-        const result = await this.client.query<PostgresUser>(query);
-        
-        if (result.rows.length === 0) {
-            return null;
-        }
-        
-        const row = result.rows[0];
-
-        return new User(
-            new UserId(row.id),
-            new Username(row.name),
-            new UserEMail(row.email),
-            new UserCreatedAt(row.createdAt)
-            );
-    };
-    
-    async update(user: User): Promise<void> {
-        const query = {
-            text: "UPDATE users SET name = $1, email = $2 WHERE id = $3",
-            values: [user.name.value, user.email.value, user.id.value],
-            };
-            await this.client.query(query);
-    };
-
-    async delete(id: UserId): Promise<void> {
-        const query = {
-            text: "DELETE FROM users WHERE id = $1",
-            values: [id.value],
-            };
-            await this.client.query(query);
     }
 
+    async getUserById(id: UserId): Promise<User | null> {
+        const user = await UserModel.findByPk(id.value); // Busca el usuario por su clave primaria
 
+        if (!user) {
+            return null;
+        }
+
+        return new User(
+            new UserId(user.id),
+            new UserUid(user.Uid),
+            new UserEMail(user.email),
+            new UserPassword(user.password),
+            new UserCreatedAt(user.createdAt)
+        );
+    }
+
+    async update(user: User): Promise<void> {
+        await UserModel.update(
+            {
+                email: user.email.value,
+                password: user.password.value
+            },
+            {
+                where: { id: user.id.value } // Actualiza solo el usuario con el ID dado
+            }
+        );
+    }
+
+    async delete(id: UserId): Promise<void> {
+        await UserModel.destroy({
+            where: { id: id.value } // Elimina el usuario con el ID dado
+        });
+    }
 }

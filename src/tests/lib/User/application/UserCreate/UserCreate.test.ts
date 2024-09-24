@@ -9,15 +9,19 @@ describe("UserCreate should", ()=> {
         const user = UserStub.create();
         await useCase.run(
             user.id.value,
-            user.name.value,
+            user.uid.value,
             user.email.value,
+            user.password.value,
+            user.idTypeState.value,
             user.createdAt.value
         );
         const users = await repository.getAll();
         expect(users).toHaveLength(1);
         const createdUser = users[0];
         expect(createdUser.id.value).toBe(user.id.value);
-        expect(createdUser.name.value).toBe(user.name.value);
+        expect(createdUser.uid.value).toBe(user.uid.value);
         expect(createdUser.email.value).toBe(user.email.value);
+        expect(createdUser.password.value).toBe(user.password.value);
+        expect(createdUser.idTypeState.value).toBe(user.idTypeState.value);
     })
 })

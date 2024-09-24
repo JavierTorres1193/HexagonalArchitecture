@@ -13,8 +13,10 @@ describe("UserGetOneById should", () => {
   
       expect(userFound).not.toBeNull();
       expect(userFound?.id.value).toBe(user.id.value);
-      expect(userFound?.name.value).toBe(user.name.value);
+      expect(userFound?.uid.value).toBe(user.uid.value);
       expect(userFound?.email.value).toBe(user.email.value);
+      expect(userFound?.password.value).toBe(user.password.value);
+      expect(userFound?.idTypeState.value).toBe(user.idTypeState.value);
     });
   
     test("throws an error if user not found", async () => {

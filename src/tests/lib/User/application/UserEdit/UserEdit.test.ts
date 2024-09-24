@@ -15,10 +15,8 @@ describe("UserEdit should", () => {
   
       const newUser = UserStub.create();
   
-      const newName = newUser.name.value;
-      const newEmail = newUser.email.value;
   
-      await editUseCase.run(user.id.value, newName, newEmail, new Date());
+      await editUseCase.run(user.id.value,  newUser.uid.value, newUser.email.value, newUser.password.value, newUser.idTypeState.value, new Date());
   
       const usersAfter = await repository.getAll();
   
@@ -27,7 +25,9 @@ describe("UserEdit should", () => {
       const editedUser = usersAfter[0];
   
       expect(editedUser.id.value).toBe(user.id.value);
-      expect(editedUser.name.value).toBe(newName);
-      expect(editedUser.email.value).toBe(newEmail);
+      expect(editedUser.uid.value).toBe(newUser.uid.value);
+      expect(editedUser.email.value).toBe(newUser.email.value);
+      expect(editedUser.password.value).toBe(newUser.password.value);
+      expect(editedUser.idTypeState.value).toBe(newUser.idTypeState.value);
     });
   });

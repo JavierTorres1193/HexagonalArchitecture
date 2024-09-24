@@ -33,18 +33,20 @@ export class ExpressUserController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-        console.log(req.body);
+        console.log("esto tiene el req.body", req.body);
         
-      const { createdAt, email, id, name } = req.body as {
-        id: string;
-        name: string;
+      const { id,Uid, email,password, createdAt } = req.body as {
+        id: number;
+        Uid: string;
         email: string;
+        password: string;
         createdAt: string;
       };
       await ServiceContainer.user.create.run(
         id,
-        name,
+        Uid,
         email,
+        password,
         new Date(createdAt),
       );
 
@@ -56,16 +58,21 @@ export class ExpressUserController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { createdAt, email, id, name } = req.body as {
-        id: string;
-        name: string;
+      const { createdAt, email, id, Uid,password,idTypeState } = req.body as {
+        id: number;
+        Uid: string;
         email: string;
+        password: string;
+        idTypeState: number;
         createdAt: string;
       };
-      await ServiceContainer.user.update.run(
+      
+      await ServiceContainer.user.create.run(
         id,
-        name,
+        Uid,
         email,
+        password,
+        new Date(createdAt),
       );
 
       return res.status(204).send();
