@@ -9,7 +9,7 @@ import { UserRepository } from "../../domain/UserRepository";
 export class UserEdit {
     constructor(private repository: UserRepository) {}
 
-    async run(id:string,name:string,email:string): Promise<void> {
+    async run(id:string,name:string,email:string,createdAt:Date): Promise<void> {
         const user = new User(
             new UserId(id),
             new Username(name),
