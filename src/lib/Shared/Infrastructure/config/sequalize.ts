@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { UserModel } from "../persistence/UserModel";
+import { UserModel } from "../../../User/infrastructure/ORM/UserModel";
 import {config} from 'dotenv';
 
 config();

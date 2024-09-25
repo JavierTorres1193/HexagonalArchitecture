@@ -1,4 +1,4 @@
-import { UserModel } from "../../../Shared/Infrastructure/persistence/UserModel";
+import { UserModel } from "./UserModel";
 import { UserRepository } from "../../domain/UserRepository";
 import { UserId } from "../../domain/UserId";
 import { User } from "../../domain/User";

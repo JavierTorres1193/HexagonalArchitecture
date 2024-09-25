@@ -5,8 +5,8 @@ import { UserEdit } from "../../User/application/UserEdit/UserEdit";
 import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
 import { UserGetById } from "../../User/application/UserGetById/UserGetById";
 import { sequelize } from "../../../lib/Shared/Infrastructure/config/sequalize"; // Importa la configuración de Sequelize
-import { UserModel } from "../../Shared/Infrastructure/persistence/UserModel"; // Importa el modelo Sequelize
-import { UserORMRepository } from "../../User/infrastructure/ORM/SequializeUserRepository";
+import { UserModel } from "../../User/infrastructure/ORM/UserModel"; // Importa el modelo Sequelize
+import { UserORMRepository } from "../../User/infrastructure/ORM/UserORMRepository";
 
 // Inicializa el repositorio con la instancia de Sequelize y el modelo
 const userRepository = new UserORMRepository();

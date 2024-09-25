@@ -5,16 +5,14 @@ import { UserCreatedAt } from "../../../../lib/User/domain/UserCreatedAt";
 import { UserEMail } from "../../../../lib/User/domain/UserEmail";
 import { UserUid } from "../../../../lib/User/domain/UserUid";
 import { UserPassword } from "../../../../lib/User/domain/UserPassword";
-import { UserTypeState } from "../../../../lib/User/domain/UserTypeState";
 
 export class UserStub {
   static create(): User {
     return new User(
-      new UserId(randUuid()),
+      new UserId(randNumber()),
       new UserUid(randUuid()),
       new UserEMail(randEmail()),
       new UserPassword(this.generateRandomPassword()), // Asignación de la contraseña generada
-      new UserTypeState(randNumber({ min: 1, max: 10 })),
       new UserCreatedAt(new Date()),
     );
   }

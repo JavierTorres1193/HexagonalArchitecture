@@ -3,7 +3,7 @@ import { User } from "../domain/User";
 import { UserId } from "../domain/UserId";
 import { UserCreatedAt } from "../domain/UserCreatedAt";
 import { UserEMail } from "../domain/UserEmail";
-import { UserModel } from "../../Shared/Infrastructure/persistence/UserModel"; // Importa tu modelo Sequelize
+import { UserModel } from "./ORM/UserModel"; // Importa tu modelo Sequelize
 import { UserUid } from "../domain/UserUid";
 import { UserPassword } from "../domain/UserPassword";
 

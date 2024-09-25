@@ -15,7 +15,15 @@ export class ExpressUserController {
 
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = await ServiceContainer.user.getById.run(req.params.id);
+      // Convertir req.params.id a número
+      const id = Number(req.params.id);
+
+      // Validar que sea un número válido
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid ID format" });
+      }
+
+      const user = await ServiceContainer.user.getById.run(id);
   
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -29,7 +37,7 @@ export class ExpressUserController {
   
       next(error);
     }
-  }
+}
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
@@ -87,7 +95,15 @@ export class ExpressUserController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      await ServiceContainer.user.delete.run(req.params.id);
+      const id = Number(req.params.id);
+
+      // Validar que sea un número válido
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid ID format" });
+      }
+
+
+      await ServiceContainer.user.delete.run(id);
 
       return res.status(204).send();
     } catch (error) {

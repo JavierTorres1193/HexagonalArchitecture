@@ -13,10 +13,9 @@ describe("UserGetOneById should", () => {
   
       expect(userFound).not.toBeNull();
       expect(userFound?.id.value).toBe(user.id.value);
-      expect(userFound?.uid.value).toBe(user.uid.value);
+      expect(userFound?.Uid.value).toBe(user.Uid.value);
       expect(userFound?.email.value).toBe(user.email.value);
       expect(userFound?.password.value).toBe(user.password.value);
-      expect(userFound?.idTypeState.value).toBe(user.idTypeState.value);
     });
   
     test("throws an error if user not found", async () => {
@@ -24,7 +23,7 @@ describe("UserGetOneById should", () => {
       const useCase = new UserGetById(repository);
   
       try {
-        await useCase.run("invalid-id");
+        await useCase.run(99999);
       } catch (error) {
         const { message } = error as Error;
         expect(message).toBe("User not found");
