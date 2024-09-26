@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
+import { config } from 'dotenv';
 import { UserModel } from "../../../User/infrastructure/ORM/UserModel";
-import {config} from 'dotenv';
+import { PersonModel } from "../../../Person/infrastructure/ORM/PersonModel";
 
 config();
 
@@ -11,11 +12,13 @@ const sequelize = new Sequelize({
     database: process.env.DB_NAME,
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-  });
-  
-  // Registra los modelos con Sequelize
-  const models = [UserModel];  // Agrega más modelos según sea necesario
-  
-  models.forEach((model) => model.initialize(sequelize));
+});
+
+const models = [UserModel, PersonModel]; 
+models.forEach((model) => model.initialize(sequelize)); 
+
+// Establecer las asociaciones después de inicializar los modelos
+UserModel.associate();
+PersonModel.associate();
 
 export { sequelize };

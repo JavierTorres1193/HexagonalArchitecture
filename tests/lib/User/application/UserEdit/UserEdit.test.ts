@@ -1,4 +1,4 @@
-import { UserEdit } from "../../../../../lib/User/application/UserEdit/UserEdit";
+import { UserEdit } from "../../../../../src/lib/User/application/UserEdit/UserEdit";
 import { InMemoryUserRepository } from "../../__mocks__/InMemoryUserRepository";
 import { UserStub } from "../../domain/userStub"
 

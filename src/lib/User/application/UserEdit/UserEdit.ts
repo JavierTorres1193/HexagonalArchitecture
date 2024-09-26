@@ -25,5 +25,5 @@ export class UserEdit {
         
 
         return this.repository.update(user);
-    }
-}
+    };
+};

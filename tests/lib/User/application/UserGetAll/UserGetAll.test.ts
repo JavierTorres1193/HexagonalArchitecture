@@ -1,4 +1,4 @@
-import { UserGetAll } from "../../../../../lib/User/application/UserGetAll/UserGetAll";
+import { UserGetAll } from "../../../../../src/lib/User/application/UserGetAll/UserGetAll";
 import { InMemoryUserRepository } from "../../__mocks__/InMemoryUserRepository";
 
 describe("UserGetAll should", ()=>{

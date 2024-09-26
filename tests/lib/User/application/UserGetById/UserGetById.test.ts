@@ -1,4 +1,4 @@
-import { UserGetById } from "../../../../../lib/User/application/UserGetById/UserGetById";
+import { UserGetById } from "../../../../../src/lib/User/application/UserGetById/UserGetById";
 import { InMemoryUserRepository } from "../../__mocks__/InMemoryUserRepository"
 import { UserStub } from "../../domain/userStub";
 

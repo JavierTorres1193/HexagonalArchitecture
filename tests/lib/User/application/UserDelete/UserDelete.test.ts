@@ -1,4 +1,4 @@
-import { UserDelete } from "../../../../../lib/User/application/UserDelete/UserDelete";
+import { UserDelete } from "../../../../../src/lib/User/application/UserDelete/UserDelete";
 import { InMemoryUserRepository } from "../../__mocks__/InMemoryUserRepository";
 import { UserStub } from "../../domain/userStub"
 

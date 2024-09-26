@@ -1,4 +1,4 @@
-import { UserCreate } from "../../../../../lib/User/application/UserCreate/UserCreate";
+import { UserCreate } from "../../../../../src/lib/User/application/UserCreate/UserCreate";
 import { InMemoryUserRepository } from "../../__mocks__/InMemoryUserRepository"
 import { UserStub } from "../../domain/userStub";
 

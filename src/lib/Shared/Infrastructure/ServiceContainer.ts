@@ -1,4 +1,3 @@
-import { PostgresUserRepository } from "../../User/infrastructure/PostgresUserRepository";
 import { UserCreate } from "../../User/application/UserCreate/UserCreate";
 import { UserDelete } from "../../User/application/UserDelete/UserDelete";
 import { UserEdit } from "../../User/application/UserEdit/UserEdit";
@@ -20,4 +19,5 @@ export const ServiceContainer = {
         update: new UserEdit(userRepository),
         delete: new UserDelete(userRepository)
     },
+
 };

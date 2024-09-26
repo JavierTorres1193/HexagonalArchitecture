@@ -1,10 +1,10 @@
-import { UserId } from "../../../../lib/User/domain/UserId";
-import { User } from "../../../../lib/User/domain/User";
+import { UserId } from "../../../../src/lib/User/domain/UserId";
+import { User } from "../../../../src/lib/User/domain/User";
 import { randEmail, randFirstName, randNumber, randUuid } from "@ngneat/falso";
-import { UserCreatedAt } from "../../../../lib/User/domain/UserCreatedAt";
-import { UserEMail } from "../../../../lib/User/domain/UserEmail";
-import { UserUid } from "../../../../lib/User/domain/UserUid";
-import { UserPassword } from "../../../../lib/User/domain/UserPassword";
+import { UserCreatedAt } from "../../../../src/lib/User/domain/UserCreatedAt";
+import { UserEMail } from "../../../../src/lib/User/domain/UserEmail";
+import { UserUid } from "../../../../src/lib/User/domain/UserUid";
+import { UserPassword } from "../../../../src/lib/User/domain/UserPassword";
 
 export class UserStub {
   static create(): User {
